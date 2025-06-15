@@ -43,4 +43,26 @@ const getAllStudent = async (req, res) => {
     }
 };
 
-module.exports = { getAllStudent };
+const deleteRow = async (index) => {
+    const sheets = await _getGoogleSheetClient();
+    await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: sheetId,
+        requestBody: {
+            requests: [
+                {
+                    deleteDimension: {
+                        range: {
+                            sheetId: 0,
+                            dimension: "ROWS",
+                            startIndex: index,
+                            endIndex: index + 1
+                        }
+                    }
+                }
+            ]
+        }
+    });
+}
+  
+
+module.exports = { getAllStudent, deleteRow };
