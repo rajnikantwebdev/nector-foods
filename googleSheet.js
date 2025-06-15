@@ -1,19 +1,16 @@
 const {google} = require("googleapis")
 
 const serviceKeyFile = "./nectorf00ds-33b4f8be7cd0.json"
-const sheetId = "1lBSFw8HU7uNS1rm3n-_t0AVafNhcnP8jvGG4Mz9k-MI"
-const sheetName = "Nector-foods"
-const range = 'A:E'
 
-main().then(() => {
-    console.log('Completed')
-})
+// main().then(() => {
+//     console.log('Completed')
+// })
 
 async function main() {
-    const googleSheetClient = await _getGoogleSheetClient();
+    // const googleSheetClient = await _getGoogleSheetClient();
     // Reading Google Sheet from a specific range
-    const data = await _readGoogleSheet(googleSheetClient, sheetId, sheetName, range);
-    console.log(data);
+    // const data = await _readGoogleSheet(googleSheetClient, sheetId, sheetName, range);
+    // console.log(data);
 }
 
 async function _getGoogleSheetClient() {
@@ -49,3 +46,5 @@ async function _writeGoogleSheet(googleSheetClient, sheetId, sheetName, range, d
         },
     })
   }
+
+module.exports = {_getGoogleSheetClient}
