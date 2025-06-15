@@ -1,0 +1,18 @@
+{
+  "roles": [
+    {
+      "name": "admin",
+      "permissions": [
+        "create_record",
+        "read_record",
+        "delete_record"
+      ]
+    },
+    {
+      "name": "student",
+      "permissions": [
+        "read_record"
+      ]
+    }
+  ]
+}
