@@ -7,9 +7,9 @@ const registerUser = async (req, res) => {
     try {
         const { username, password, role } = req.body;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        // const user = new User({ username, password: hashedPassword, role });
+        const user = new User({ username, password: hashedPassword, role });
 
-        // const response = await user.save();
+        const response = await user.save();
         res.status(200).json({ message: "User registered successfully, redirecting to Login Page!" });
     } catch (error) {
         res.status(500).json({ message: error?.message });
