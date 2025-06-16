@@ -1,21 +1,14 @@
 const {google} = require("googleapis")
-
-const serviceKeyFile = "./nectorf00ds-33b4f8be7cd0.json"
-
-// main().then(() => {
-//     console.log('Completed')
-// })
-
-async function main() {
-    // const googleSheetClient = await _getGoogleSheetClient();
-    // Reading Google Sheet from a specific range
-    // const data = await _readGoogleSheet(googleSheetClient, sheetId, sheetName, range);
-    // console.log(data);
-}
+const path = require("path")
 
 async function _getGoogleSheetClient() {
     const auth = new google.auth.GoogleAuth({
-        keyFile: serviceKeyFile,
+        credentials: {
+            type: "service_account",
+            project_id: process.env.GOOGLE_PROJECT_ID,
+            private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+            client_email: process.env.GOOGLE_CLIENT_EMAIL,
+          },
         scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
     const authClient = await auth.getClient();
@@ -24,27 +17,5 @@ async function _getGoogleSheetClient() {
         auth: authClient,
     });
 }
-
-async function _readGoogleSheet(googleSheetClient, sheetId, sheetName, range) {
-    const res = await googleSheetClient.spreadsheets.values.get({
-        spreadsheetId: sheetId,
-        range: `${sheetName}!${range}`,
-    });
-
-    return res.data.values;
-}
-
-async function _writeGoogleSheet(googleSheetClient, sheetId, sheetName, range, data) {
-    await googleSheetClient.spreadsheets.values.append({
-        spreadsheetId: sheetId,
-        range: `${sheetName}!${range}`,
-        valueInputOption: 'USER_ENTERED',
-        insertDataOption: 'INSERT_ROWS',
-        resource: {
-            "majorDimension": "ROWS",
-            "values": data
-        },
-    })
-  }
 
 module.exports = {_getGoogleSheetClient}
